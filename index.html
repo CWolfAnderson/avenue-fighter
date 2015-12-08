@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="animate.css">
+  
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>  
+  
+  <style>
+  .block {
+    display: block;
+    margin: 5px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  </style>
+  
+</head>
+<body>
+  
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Warriors!</h1>
+      </div>
+    </div>
+    
+    <div class="row">
+      
+      <div class="col-md-1"></div>
+      
+      <div class="col-md-3">
+        
+        <p>Name: Archer</p>
+        <p>HP: <span id="archerHP"></span></p>
+        
+      </div>
+      
+      <div class="col-md-4">
+        
+        <img src="http://www.emmys.com/sites/default/files/styles/show_detail/public/archer-logo-600x600.jpg?itok=cM24eDUF" height="200px" width="150px" id="archer-img">
+        
+      </div>
+      
+      <div class="col-md-4">
+        
+        <button onclick="archer.normalAttack(thor)" class="btn btn-primary block">Archer Attack!</button>
+        <button  class="btn btn-danger block">Archer Special!</button>
+        <button class="btn btn-success block">Archer Heal!</button>
+        
+      </div>
+      
+    </div>
+    
+    <div class="row">
+      
+      <div class="col-md-1"></div>
+      
+      <div class="col-md-3">
+        
+        <p>Name: Thor</p>
+        <p>HP: <span id="thorHP"></span></p>
+        
+      </div>
+      
+      <div class="col-md-4">
+        
+        <img src="http://cdn1.vox-cdn.com/uploads/chorus_asset/file/2317228/Thor_Goddess_of_Thunder_Character_Art.0.png" height="200px" width="150px" id="thor-img">
+        
+      </div>
+      
+      <div class="col-md-4">
+        
+        <button onclick="thor.normalAttack(archer)" class="btn btn-primary block">Thor Attack!</button>
+        <button class="btn btn-danger block">Thor Special!</button>
+        <button class="btn btn-success block">Thor Heal!</button>  
+        
+      </div>
+    </div>
+    
+  </div>
+  
+  <script>
+  
+  function Warrior(name, hp, normal, special) {    
+    return {
+      name: name,
+      hp: hp,
+      normal: normal,
+      special: special,
+      normalAttack: function(enemy) {
+        
+        if (this.criticalHit()) {
+          enemy.hp -= (this.normal.damage * 2);
+          // alert("It was a Critical Hit!");
+        }
+        
+        $("#" + this.name.toLowerCase() + "-img").addClass("shake animated");
+        
+        $("#" + this.name.toLowerCase() + "-img").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {$(this).removeClass("shake animated")});
+        
+        enemy.hp -= this.normal.damage;
+        
+        if (enemy.hp < 1) enemy.hp = 0;
+        
+        $("#" + enemy.name.toLowerCase() + "HP").text(enemy.hp);
+        checkDeath(enemy);
+      },
+      criticalHit: function() {
+        var randomNumber = Math.floor(Math.random() * (10)) + 1;
+        return randomNumber > 8;
+      }
+    }
+  }
+  
+  function checkDeath(warrior) {
+    if (warrior.hp < 1) {
+      $("#" + warrior.name.toLowerCase() + "-img").attr("src", "http://blogs-images.forbes.com/merrillbarr/files/2014/03/the-walking-dead.jpg");
+      $(".btn").attr("disabled", true);
+    }
+  }
+  
+  
+  
+  var archer = Warrior("Archer", 100, {name: "shoot", damage: 7, mana: 10}, {name: "blast", damage: 15, mana: 5});
+  
+  var thor = Warrior("Thor", 120, {name: "hammertime", damage: 6}, {name: "thunder bolt", damage: 20});
+  
+  $("#archerHP").text(archer.hp);
+  $("#thorHP").text(thor.hp);
+  
+  
+  </script>
+</body>
+</html>
