@@ -1,0 +1,9 @@
+img {
+  height: 100%;
+  width: 100%;
+}
+
+select {
+  height: 40px;
+  width: 80px;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="avenueWarrior">
+
+<head>
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/scripts.js" charset="utf-8"></script>
+
+  <meta charset="utf-8">
+  <title>Avenue Warrior</title>
+</head>
+
+<body>
+  
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1>Avenue Warrior</h1>
+    </div>
+    
+    <div ng-controller="FightController">
+
+      <!-- <input type="text" ng-model="input"> 
+
+  <h2>{{input}}</h2>
+-->
+
+      <!-- Name: {{name}} -->
+
+      <div class="row" ng-repeat="warrior in warriors">
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-3">
+          <h2>{{warrior.name}}</h2>
+          <h6>HP: {{warrior.hp}}</h6>
+        </div>
+
+        <div class="col-md-3">
+          <img src="{{warrior.img}}" alt="">
+        </div>
+
+        <div class="col-md-3">
+
+          <select name="enemy" class="btn btn-success">
+
+            <option ng-repeat="enemy in warriors" ng-if="warrior.name != enemy.name" value="{{enemy.name}}">{{enemy.name}}
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
