@@ -4,6 +4,16 @@ angular.module('avenueWarrior', [])
 
   // $scope.name = "Christoph";
 
+  // for Animate.css
+  $.fn.extend({
+      animateCss: function (animationName) {
+          var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+          $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+              $(this).removeClass('animated ' + animationName);
+          });
+      }
+  });
+
   function Warrior(name, hp, normal, special, image) {
     return {
       name: name,
@@ -14,7 +24,7 @@ angular.module('avenueWarrior', [])
 
         if (this.criticalHit()) {
           enemy.hp -= (this.normal.damage * 2);
-          // alert("It was a Critical Hit!");
+          alert("It was a Critical Hit!");
         }
 
         $("#" + this.name.toLowerCase() + "-img").addClass("shake animated");
@@ -74,11 +84,15 @@ angular.module('avenueWarrior', [])
 
 $scope.warriors = [archer, thor, link];
 
+// $("")
 
+$scope.attack = function(attacker) {
+  // $( "#myselect option:selected" ).text();
+  var attackee = $("").val();
+  alert(attacker + " attacked " + attackee);
+};
 
-
-
-
+$('#yourElement').animateCss('bounce');
 
 
 
